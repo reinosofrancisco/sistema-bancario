@@ -48,4 +48,12 @@ public class Cliente extends Persona {
     public void setAltaCliente(Date altaCliente) {
         this.altaCliente = altaCliente;
     }
+
+    public Integer getIdSucursal() {
+        return idSucursal;
+    }
+
+    public void setIdSucursal(Integer idSucursal) {
+        this.idSucursal = idSucursal;
+    }
 }

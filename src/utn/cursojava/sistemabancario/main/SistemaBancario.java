@@ -5,6 +5,8 @@ import utn.cursojava.sistemabancario.models.CajaDeAhorro;
 import utn.cursojava.sistemabancario.models.Cliente;
 import utn.cursojava.sistemabancario.services.*;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class SistemaBancario {
         /* CASO 1 - AGREGAR CLIENTE Y SU RESPECTIVA CUENTA */
 
         /* Creo un cliente y lo agrego a la Sucursal Virtual */
-        Cliente cliente = new Cliente("42095198","Reinoso Francisco","2214555858",
+        Cliente cliente = new Cliente("42095199","Reinoso Francisco","2214555858",
                 "Test@Test.com","Calle 99 Numero 99",
                 Date.from(LocalDate.now().minusYears(20).atStartOfDay().toInstant(ZoneOffset.UTC)),
                 0
@@ -41,6 +43,8 @@ public class SistemaBancario {
         ICuentaService<CajaDeAhorro> cajaDeAhorroService = new CajaDeAhorroService();
         cajaDeAhorroService.addCuenta(cajaDeAhorro);
 
+        /* Prints clientes de la Sucursal = 0 */
+        sucursalService.printClientes(0);
 
     }
 }

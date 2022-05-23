@@ -3,3 +3,7 @@ CREATE TABLE `sistema_bancario`.`CLIENTES` (
   `domicilio` VARCHAR(45) NOT NULL,
   `NOMBRE_APELLIDO` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`dni`));
+
+
+ALTER TABLE `sistema_bancario`.`CLIENTES`
+ADD COLUMN `numeroSucursal` VARCHAR(45) NOT NULL AFTER `NOMBRE_APELLIDO`;

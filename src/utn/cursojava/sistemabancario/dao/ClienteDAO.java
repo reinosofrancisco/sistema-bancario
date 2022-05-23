@@ -8,7 +8,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 
 public class ClienteDAO implements IClienteDAO {
 
-    private final String INSERTAR_CLIENTE = "INSERT INTO CLIENTES (dni, domicilio, NOMBRE_APELLIDO) VALUES (?,?,?)";
+    private final String INSERTAR_CLIENTE = "INSERT INTO CLIENTES (dni, domicilio, NOMBRE_APELLIDO, numeroSucursal) VALUES (?,?,?,?)";
 
     @Override
     public void addCliente(Cliente cliente) {
@@ -21,6 +21,7 @@ public class ClienteDAO implements IClienteDAO {
             preparedStatement.setInt(1, Integer.valueOf(cliente.getDni()));
             preparedStatement.setString(2, cliente.getDomicilio());
             preparedStatement.setString(3, cliente.getNombreApellido());
+            preparedStatement.setInt(4, Integer.valueOf(cliente.getIdSucursal()));
 
             if (preparedStatement.executeUpdate() > 0) {
                 System.out.println("Se ha agregado el Cliente Correctamente!");
