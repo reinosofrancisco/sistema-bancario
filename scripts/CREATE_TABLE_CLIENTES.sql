@@ -1,0 +1,5 @@
+CREATE TABLE `sistema_bancario`.`CLIENTES` (
+  `dni` INT NOT NULL,
+  `domicilio` VARCHAR(45) NOT NULL,
+  `NOMBRE_APELLIDO` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`dni`));
