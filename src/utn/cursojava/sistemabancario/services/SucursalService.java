@@ -25,4 +25,9 @@ public class SucursalService implements ISucursalService {
     public void printClientes(Integer numeroSucursal) {
         sucursalDAO.printClientes(numeroSucursal);
     }
+
+    @Override
+    public void printClientesAllSucursales() {
+        sucursalDAO.printClientesAllSucursales();
+    }
 }

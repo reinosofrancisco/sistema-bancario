@@ -10,4 +10,7 @@ public interface ISucursalService {
     void addSucursal(Integer numeroSucursal, String nombreSucursal);
 
     public void printClientes(Integer numeroSucursal);
+
+    public void printClientesAllSucursales();
+
 }

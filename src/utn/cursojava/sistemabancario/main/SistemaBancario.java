@@ -46,5 +46,9 @@ public class SistemaBancario {
         /* Prints clientes de la Sucursal = 0 */
         sucursalService.printClientes(0);
 
+        System.out.println("\n\nSEPARADOR\n\n");
+
+        sucursalService.printClientesAllSucursales();
+
     }
 }
