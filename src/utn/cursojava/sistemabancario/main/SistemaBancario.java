@@ -84,6 +84,7 @@ public class SistemaBancario {
         sucursalService.addSucursal(1, "Sucursal Testeo");
 
         /* Elimino la Sucursal Testeo. Esto hace update a los clientes con Sucursal 1 y le asigna un 0. */
+        /* Por alguna razon el Query retorna True pero la row no se actualiza <= <= <= */
         sucursalService.eliminarSucursal(1);
 
 
