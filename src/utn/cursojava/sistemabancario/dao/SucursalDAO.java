@@ -23,9 +23,10 @@ public class SucursalDAO implements ISucursalDAO {
     public void addSucursal(Sucursal sucursal) {
         /* Logica para agregar la sucursal a la BD */
         /* Me conecto a la Base de Datos y guardo la Sucursal! */
+        JdbcConnection jdbcConnection = null;
         try {
             /* Me conecto a la base de datos */
-            JdbcConnection jdbcConnection = new JdbcConnection();
+            jdbcConnection = new JdbcConnection();
             PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareCall(INSERTAR_SUCURSAL);
             preparedStatement.setInt(1, sucursal.getNumeroSucursal());
             preparedStatement.setString(2, sucursal.getNombreSucursal());
@@ -36,12 +37,12 @@ public class SucursalDAO implements ISucursalDAO {
                 System.out.println("No se ha agregado la sucursal");
             }
 
-            jdbcConnection.closeConnection();
-
         } catch (SQLIntegrityConstraintViolationException e) {
             System.out.println("Ya existe una sucursal con ese numero");
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            jdbcConnection.closeConnection();
         }
     }
 
@@ -56,24 +57,24 @@ public class SucursalDAO implements ISucursalDAO {
         /* Logica para agregar la sucursal a la BD */
         /* Me conecto a la Base de Datos y guardo la Sucursal! */
         ResultSet resultSet = null;
+        JdbcConnection jdbcConnection = null;
         try {
             /* Me conecto a la base de datos */
-            JdbcConnection jdbcConnection = new JdbcConnection();
+            jdbcConnection = new JdbcConnection();
             PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareCall(GET_CLIENTES);
             preparedStatement.setInt(1, numeroSucursal);
 
             resultSet = preparedStatement.executeQuery();
 
             System.out.println("Clientes Sucursal " + numeroSucursal);
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 System.out.println("DNI = " + resultSet.getString("dni"));
             }
 
-
-            jdbcConnection.closeConnection();
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            jdbcConnection.closeConnection();
         }
 
     }
@@ -91,21 +92,22 @@ public class SucursalDAO implements ISucursalDAO {
     public List<Integer> getSucursales() {
         /* Logica para obtener las sucursales */
         List<Integer> list = new ArrayList<>();
+        JdbcConnection jdbcConnection = null;
         try {
             /* Me conecto a la base de datos */
-            JdbcConnection jdbcConnection = new JdbcConnection();
+            jdbcConnection = new JdbcConnection();
             PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareCall(GET_SUCURSALES);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 list.add(Integer.valueOf(resultSet.getString("numeroSucursal")));
             }
 
-            jdbcConnection.closeConnection();
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            jdbcConnection.closeConnection();
         }
         return list;
     }
@@ -117,9 +119,10 @@ public class SucursalDAO implements ISucursalDAO {
         //TODO: Implementar - Por ahora solo eliminas la sucursal
         IClienteDAO clientedao = new ClienteDAO();
         clientedao.updateClientesSucursal(numeroSucursal);
+        JdbcConnection jdbcConnection = null;
         try {
             /* Me conecto a la base de datos */
-            JdbcConnection jdbcConnection = new JdbcConnection();
+            jdbcConnection = new JdbcConnection();
             PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareCall(DELETE_SUCURSAL);
             preparedStatement.setInt(1, numeroSucursal);
 
@@ -131,10 +134,10 @@ public class SucursalDAO implements ISucursalDAO {
                 System.out.println("No se ha eliminado la sucursal");
             }
 
-            jdbcConnection.closeConnection();
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            jdbcConnection.closeConnection();
         }
     }
 

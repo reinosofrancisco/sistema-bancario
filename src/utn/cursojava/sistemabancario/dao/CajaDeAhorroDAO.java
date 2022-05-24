@@ -20,9 +20,10 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
     @Override
     public void addCuenta(CajaDeAhorro cuenta) {
         /* Me conecto a la Base de Datos y guardo la Cuenta! */
+        JdbcConnection jdbcConnection = null;
         try {
             /* Me conecto a la base de datos */
-            JdbcConnection jdbcConnection = new JdbcConnection();
+            jdbcConnection = new JdbcConnection();
             PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareCall(INSERTAR_CAJA_DE_AHORRO);
             preparedStatement.setInt(1, cuenta.getNumCuenta());
             preparedStatement.setDouble(2, cuenta.getSaldo());
@@ -36,14 +37,14 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
                 System.out.println("No se ha agregado la cuenta");
             }
 
-            jdbcConnection.closeConnection();
 
         } catch (SQLIntegrityConstraintViolationException e) {
             System.out.println("Ya existe una cuenta con ese numero de cuenta");
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            jdbcConnection.closeConnection();
         }
-//        cajasDeAhorro.add(cuenta);
     }
 
     @Override
@@ -55,9 +56,10 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
     public void depositar(CajaDeAhorro cuenta, double monto) {
         Double saldoActual = getCuenta(cuenta.getNumCuenta()).getSaldo();
 
+        JdbcConnection jdbcConnection = null;
         try {
             /* Me conecto a la base de datos */
-            JdbcConnection jdbcConnection = new JdbcConnection();
+            jdbcConnection = new JdbcConnection();
             PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareCall(UPDATE_SALDO_CAJA_DE_AHORRO);
             preparedStatement.setDouble(1, saldoActual + monto);
             preparedStatement.setInt(2, cuenta.getNumCuenta());
@@ -70,14 +72,17 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            jdbcConnection.closeConnection();
         }
 
     }
 
     public CajaDeAhorro getCuenta(int numCuenta) {
         CajaDeAhorro cajaDeAhorro = null;
+        JdbcConnection jdbcConnection = null;
         try {
-            JdbcConnection jdbcConnection = new JdbcConnection();
+            jdbcConnection = new JdbcConnection();
             PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareCall(GET_CAJA_DE_AHORRO);
             preparedStatement.setInt(1, numCuenta);
 
@@ -91,9 +96,10 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
                         resultSet.getString("tipoMoneda"));
             }
 
-            jdbcConnection.closeConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            jdbcConnection.closeConnection();
         }
         return cajaDeAhorro;
     }
@@ -102,9 +108,10 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
     public void retirar(CajaDeAhorro cuenta, double monto) {
         Double saldoActual = getCuenta(cuenta.getNumCuenta()).getSaldo();
 
+        JdbcConnection jdbcConnection = null;
         try {
             /* Me conecto a la base de datos */
-            JdbcConnection jdbcConnection = new JdbcConnection();
+            jdbcConnection = new JdbcConnection();
             PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareCall(UPDATE_SALDO_CAJA_DE_AHORRO);
             preparedStatement.setDouble(1, saldoActual - monto);
             preparedStatement.setInt(2, cuenta.getNumCuenta());
@@ -117,6 +124,8 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            jdbcConnection.closeConnection();
         }
 
     }
