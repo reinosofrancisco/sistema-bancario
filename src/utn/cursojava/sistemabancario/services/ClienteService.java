@@ -6,7 +6,7 @@ import utn.cursojava.sistemabancario.models.Cliente;
 
 public class ClienteService implements IClienteService {
 
-    private IClienteDAO clienteDAO;
+    private final IClienteDAO clienteDAO;
 
     public ClienteService() {
         this.clienteDAO = new ClienteDAO();

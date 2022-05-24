@@ -2,15 +2,11 @@ package utn.cursojava.sistemabancario.services;
 
 import utn.cursojava.sistemabancario.dao.ISucursalDAO;
 import utn.cursojava.sistemabancario.dao.SucursalDAO;
-import utn.cursojava.sistemabancario.models.Cliente;
 import utn.cursojava.sistemabancario.models.Sucursal;
-
-import java.sql.ResultSet;
-import java.util.List;
 
 public class SucursalService implements ISucursalService {
 
-    private ISucursalDAO sucursalDAO;
+    private final ISucursalDAO sucursalDAO;
 
     public SucursalService() {
         this.sucursalDAO = new SucursalDAO();

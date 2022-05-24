@@ -6,7 +6,7 @@ import utn.cursojava.sistemabancario.models.CajaDeAhorro;
 
 public class CajaDeAhorroService implements ICuentaService<CajaDeAhorro>{
 
-    private ICuentaDAO<CajaDeAhorro> cajaDeAhorroDAO;
+    private final ICuentaDAO<CajaDeAhorro> cajaDeAhorroDAO;
 
     public CajaDeAhorroService() {
         this.cajaDeAhorroDAO = new CajaDeAhorroDAO();

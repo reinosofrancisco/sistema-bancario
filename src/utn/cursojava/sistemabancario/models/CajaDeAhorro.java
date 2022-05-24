@@ -8,10 +8,10 @@ public class CajaDeAhorro extends Cuenta {
     /**
      * Constructor de Caja de Ahorro.
      *
-     * @param numCuenta
-     * @param saldo
-     * @param cbu
-     * @param idCliente
+     * @param numCuenta Numero de cuenta.
+     * @param saldo Saldo de la cuenta.
+     * @param cbu CBU de la cuenta.
+     * @param idCliente DNI del cliente asociado a la cuenta.
      * @param tipoMoneda ARS, USD, EUR
      */
     public CajaDeAhorro(Integer numCuenta, Double saldo, String cbu, Integer idCliente, String tipoMoneda) {

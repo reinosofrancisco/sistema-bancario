@@ -1,15 +1,13 @@
 package utn.cursojava.sistemabancario.models;
 
-import java.util.List;
-
 public class Sucursal {
 
     private int numeroSucursal;
     private String nombreSucursal;
 
     /** Constructor de Sucursal
-     * @param numeroSucursal
-     * @param nombreSucursal
+     * @param numeroSucursal numero de la sucursal
+     * @param nombreSucursal nombre de la sucursal
      */
     public Sucursal(int numeroSucursal, String nombreSucursal) {
         this.numeroSucursal = numeroSucursal;

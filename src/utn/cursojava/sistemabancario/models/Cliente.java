@@ -1,7 +1,6 @@
 package utn.cursojava.sistemabancario.models;
 
 import java.util.Date;
-import java.util.List;
 
 public class Cliente extends Persona {
 
@@ -14,13 +13,13 @@ public class Cliente extends Persona {
     /**
      * Constructor de la clase Persona.
      *
-     * @param dni
-     * @param nombreApellido
-     * @param telefono
-     * @param email
-     * @param domicilio
-     * @param altaCliente
-     * @param idSucursal
+     * @param dni     DNI del cliente.
+     * @param nombreApellido Nombre y apellido del cliente.
+     * @param telefono Telefono del cliente.
+     * @param email  Email del cliente.
+     * @param domicilio Domicilio del cliente.
+     * @param altaCliente Fecha de alta del cliente.
+     * @param idSucursal Id de la sucursal del cliente.
      */
     public Cliente(String dni, String nombreApellido, String telefono, String email, String domicilio, Date altaCliente, Integer idSucursal) {
         super(dni, nombreApellido, telefono, email);

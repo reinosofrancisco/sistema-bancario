@@ -10,10 +10,10 @@ public abstract class Persona {
 //    protected Sucursal sucursalCliente;
 
     /** Constructor de la clase Persona.
-     * @param dni
-     * @param nombreApellido
-     * @param telefono
-     * @param email
+     * @param dni DNI de la persona.
+     * @param nombreApellido Nombre y apellido de la persona.
+     * @param telefono Telefono de la persona.
+     * @param email Email de la persona.
      */
     public Persona(String dni, String nombreApellido, String telefono, String email) {
         this.dni = dni;
@@ -55,14 +55,5 @@ public abstract class Persona {
     public void setEmail(String email) {
         this.email = email;
     }
-
-//    public String getNumeroDeSucursal() {
-//        return numeroDeSucursal;
-//    }
-
-//    public void setNumeroDeSucursal(String numeroDeSucursal) {
-//        this.numeroDeSucursal = numeroDeSucursal;
-//    }
-
 
 }

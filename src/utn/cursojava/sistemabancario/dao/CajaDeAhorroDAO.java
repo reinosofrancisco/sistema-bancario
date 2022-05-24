@@ -3,12 +3,9 @@ package utn.cursojava.sistemabancario.dao;
 import utn.cursojava.sistemabancario.models.CajaDeAhorro;
 
 import java.sql.*;
-import java.util.List;
 
 public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
 
-    private final String INSERTAR_CAJA_DE_AHORRO = "INSERT INTO CUENTA_AHORRO (numCuenta, saldo, cbu, tipoMoneda, dniCliente) VALUES (?,?,?,?,?)";
-    private final String GET_CAJA_DE_AHORRO = "SELECT * FROM CUENTA_AHORRO WHERE numCuenta = ?";
     private final String UPDATE_SALDO_CAJA_DE_AHORRO = "UPDATE CUENTA_AHORRO SET saldo = ? WHERE numCuenta = ?";
 
 
@@ -24,6 +21,7 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
         try {
             /* Me conecto a la base de datos */
             jdbcConnection = new JdbcConnection();
+            String INSERTAR_CAJA_DE_AHORRO = "INSERT INTO CUENTA_AHORRO (numCuenta, saldo, cbu, tipoMoneda, dniCliente) VALUES (?,?,?,?,?)";
             PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareCall(INSERTAR_CAJA_DE_AHORRO);
             preparedStatement.setInt(1, cuenta.getNumCuenta());
             preparedStatement.setDouble(2, cuenta.getSaldo());
@@ -43,7 +41,9 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            jdbcConnection.closeConnection();
+            if (jdbcConnection != null) {
+                jdbcConnection.closeConnection();
+            }
         }
     }
 
@@ -73,7 +73,9 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            jdbcConnection.closeConnection();
+            if (jdbcConnection != null) {
+                jdbcConnection.closeConnection();
+            }
         }
 
     }
@@ -83,6 +85,7 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
         JdbcConnection jdbcConnection = null;
         try {
             jdbcConnection = new JdbcConnection();
+            String GET_CAJA_DE_AHORRO = "SELECT * FROM CUENTA_AHORRO WHERE numCuenta = ?";
             PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareCall(GET_CAJA_DE_AHORRO);
             preparedStatement.setInt(1, numCuenta);
 
@@ -99,7 +102,9 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            jdbcConnection.closeConnection();
+            if (jdbcConnection != null) {
+                jdbcConnection.closeConnection();
+            }
         }
         return cajaDeAhorro;
     }
@@ -125,7 +130,9 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            jdbcConnection.closeConnection();
+            if (jdbcConnection != null) {
+                jdbcConnection.closeConnection();
+            }
         }
 
     }
