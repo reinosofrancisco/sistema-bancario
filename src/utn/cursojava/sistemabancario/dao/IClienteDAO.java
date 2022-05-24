@@ -6,7 +6,7 @@ public interface IClienteDAO {
 
     void addCliente(Cliente cliente);
 
-    void updateClientesSucursal(Integer idSucursal);
+    public void updateClientesSucursal(Integer idSucursal);
 
 
 }

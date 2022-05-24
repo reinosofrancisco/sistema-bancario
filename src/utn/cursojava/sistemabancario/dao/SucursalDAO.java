@@ -115,32 +115,36 @@ public class SucursalDAO implements ISucursalDAO {
 
     @Override
     public void eliminarSucursal(Integer numeroSucursal) {
-        //GET SUCURSALES. IF SUCURSALES > 1 THEN DELETE ELIMINAR SUCURSAL
-        //BEFORE, UPDATE CLIENTES TO SUCURSAL 0
-        //TODO: Implementar - Por ahora solo eliminas la sucursal
-        IClienteDAO clientedao = new ClienteDAO();
-        clientedao.updateClientesSucursal(numeroSucursal);
-        JdbcConnection jdbcConnection = null;
-        try {
-            /* Me conecto a la base de datos */
-            jdbcConnection = new JdbcConnection();
-            String DELETE_SUCURSAL = "DELETE FROM SUCURSALES WHERE numeroSucursal = ?";
-            PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareCall(DELETE_SUCURSAL);
-            preparedStatement.setInt(1, numeroSucursal);
 
-            int result = preparedStatement.executeUpdate();
+        /* Mientras la Sucursal no sea ID = 0 (Es decir, la Sucursal Virtual). */
+        if (numeroSucursal != 0) {
+            /* Primero actualizo los Clientes de la sucursal que voy a borrar a SucursalNumero -> 0 */
+            IClienteDAO clientedao = new ClienteDAO();
+            clientedao.updateClientesSucursal(numeroSucursal);
 
-            if (result == 1) {
-                System.out.println("Se ha eliminado la sucursal correctamente");
-            } else {
-                System.out.println("No se ha eliminado la sucursal");
-            }
+            /* Luego elimino la Sucursal */
+            JdbcConnection jdbcConnection = null;
+            try {
+                /* Me conecto a la base de datos */
+                jdbcConnection = new JdbcConnection();
+                String DELETE_SUCURSAL = "DELETE FROM SUCURSALES WHERE numeroSucursal = ?";
+                PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareCall(DELETE_SUCURSAL);
+                preparedStatement.setInt(1, numeroSucursal);
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (jdbcConnection != null) {
-                jdbcConnection.closeConnection();
+                int result = preparedStatement.executeUpdate();
+
+                if (result == 1) {
+                    System.out.println("Se ha eliminado la sucursal correctamente");
+                } else {
+                    System.out.println("No se ha eliminado la sucursal");
+                }
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } finally {
+                if (jdbcConnection != null) {
+                    jdbcConnection.closeConnection();
+                }
             }
         }
     }
