@@ -13,4 +13,6 @@ public interface ISucursalService {
 
     public void printClientesAllSucursales();
 
+    public void eliminarSucursal(Integer numeroSucursal);
+
 }

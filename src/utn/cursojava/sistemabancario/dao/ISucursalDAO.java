@@ -14,4 +14,6 @@ public interface ISucursalDAO {
     public void printClientesAllSucursales();
 
     public List<Integer> getSucursales();
+
+    public void eliminarSucursal(Integer numeroSucursal);
 }

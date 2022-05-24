@@ -37,4 +37,9 @@ public class CajaDeAhorroService implements ICuentaService<CajaDeAhorro>{
         this.cajaDeAhorroDAO.transferir(cuentaOrigen, cuentaDestino, monto);
     }
 
+    @Override
+    public double getSaldo(CajaDeAhorro cuenta) {
+        return this.cajaDeAhorroDAO.getCuenta(cuenta.getNumCuenta()).getSaldo();
+    }
+
 }

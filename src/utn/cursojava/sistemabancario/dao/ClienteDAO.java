@@ -10,6 +10,8 @@ public class ClienteDAO implements IClienteDAO {
 
     private final String INSERTAR_CLIENTE = "INSERT INTO CLIENTES (dni, domicilio, NOMBRE_APELLIDO, numeroSucursal) VALUES (?,?,?,?)";
 
+    private final String UPDATE_CLIENTE_SUCURSAL = "UPDATE CLIENTES SET numeroSucursal=? WHERE numeroSucursal=?";
+
     @Override
     public void addCliente(Cliente cliente) {
         // TODO - ADD CLIENTE TO DB
@@ -33,6 +35,26 @@ public class ClienteDAO implements IClienteDAO {
 
         } catch (SQLIntegrityConstraintViolationException e) {
             System.out.println("Ya existe un cliente con ese DNI!");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateClientesSucursal(Integer idSucursal) {
+        try {
+            JdbcConnection jdbcConnection = new JdbcConnection();
+            PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareCall(UPDATE_CLIENTE_SUCURSAL);
+            preparedStatement.setInt(1, idSucursal);
+            preparedStatement.setInt(2, idSucursal);
+
+            if (preparedStatement.executeUpdate() > 0) {
+                System.out.println("Se ha actualizado el Cliente Correctamente! -> Excepto que no... no actualiza el numeroSucursal? ");
+            } else {
+                System.out.println("No se ha actualizado el cliente");
+            }
+
+            jdbcConnection.closeConnection();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

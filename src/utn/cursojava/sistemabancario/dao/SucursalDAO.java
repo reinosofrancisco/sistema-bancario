@@ -17,6 +17,8 @@ public class SucursalDAO implements ISucursalDAO {
     private final String GET_SUCURSALES = "SELECT * FROM SUCURSALES";
     private final String GET_CLIENTES = "SELECT * FROM CLIENTES WHERE numeroSucursal = ?";
 
+    private final String DELETE_SUCURSAL = "DELETE FROM SUCURSALES WHERE numeroSucursal = ?";
+
     @Override
     public void addSucursal(Sucursal sucursal) {
         /* Logica para agregar la sucursal a la BD */
@@ -87,11 +89,7 @@ public class SucursalDAO implements ISucursalDAO {
 
     @Override
     public List<Integer> getSucursales() {
-        /* Logica para obtener los clientes de la sucursal */
-        /* Me conecto a la Base de Datos y obtengo los clientes! */
-
-        /* Logica para agregar la sucursal a la BD */
-        /* Me conecto a la Base de Datos y guardo la Sucursal! */
+        /* Logica para obtener las sucursales */
         List<Integer> list = new ArrayList<>();
         try {
             /* Me conecto a la base de datos */
@@ -111,6 +109,36 @@ public class SucursalDAO implements ISucursalDAO {
         }
         return list;
     }
+
+    @Override
+    public void eliminarSucursal(Integer numeroSucursal) {
+        //GET SUCURSALES. IF SUCURSALES > 1 THEN DELETE ELIMINAR SUCURSAL
+        //BEFORE, UPDATE CLIENTES TO SUCURSAL 0
+        //TODO: Implementar - Por ahora solo eliminas la sucursal
+        IClienteDAO clientedao = new ClienteDAO();
+        clientedao.updateClientesSucursal(numeroSucursal);
+        try {
+            /* Me conecto a la base de datos */
+            JdbcConnection jdbcConnection = new JdbcConnection();
+            PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareCall(DELETE_SUCURSAL);
+            preparedStatement.setInt(1, numeroSucursal);
+
+            int result = preparedStatement.executeUpdate();
+
+            if (result == 1) {
+                System.out.println("Se ha eliminado la sucursal correctamente");
+            } else {
+                System.out.println("No se ha eliminado la sucursal");
+            }
+
+            jdbcConnection.closeConnection();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
 
 }

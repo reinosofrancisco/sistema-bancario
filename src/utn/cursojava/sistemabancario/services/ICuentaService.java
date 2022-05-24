@@ -7,4 +7,6 @@ public interface ICuentaService<T> {
     public void retirar(T cuenta, double monto);
     public void transferir(T cuentaOrigen, T cuentaDestino, double monto);
 
+    public double getSaldo(T cuenta);
+
 }
