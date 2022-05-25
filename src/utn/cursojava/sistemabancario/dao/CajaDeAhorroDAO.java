@@ -53,8 +53,8 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
     }
 
     @Override
-    public void depositar(CajaDeAhorro cuenta, double monto) {
-        Double saldoActual = getCuenta(cuenta.getNumCuenta()).getSaldo();
+    public void depositar(Integer cuenta, double monto) {
+        Double saldoActual = getCuenta(cuenta).getSaldo();
 
         JdbcConnection jdbcConnection = null;
         try {
@@ -62,7 +62,7 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
             jdbcConnection = new JdbcConnection();
             PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareCall(UPDATE_SALDO_CAJA_DE_AHORRO);
             preparedStatement.setDouble(1, saldoActual + monto);
-            preparedStatement.setInt(2, cuenta.getNumCuenta());
+            preparedStatement.setInt(2, cuenta);
 
             if (preparedStatement.executeUpdate() > 0) {
                 System.out.println("Se ha depositado correctamente");
@@ -110,8 +110,8 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
     }
 
     @Override
-    public void retirar(CajaDeAhorro cuenta, double monto) {
-        Double saldoActual = getCuenta(cuenta.getNumCuenta()).getSaldo();
+    public void retirar(Integer cuenta, double monto) {
+        Double saldoActual = getCuenta(cuenta).getSaldo();
 
         JdbcConnection jdbcConnection = null;
         try {
@@ -119,7 +119,7 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
             jdbcConnection = new JdbcConnection();
             PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareCall(UPDATE_SALDO_CAJA_DE_AHORRO);
             preparedStatement.setDouble(1, saldoActual - monto);
-            preparedStatement.setInt(2, cuenta.getNumCuenta());
+            preparedStatement.setInt(2, cuenta);
 
             if (preparedStatement.executeUpdate() > 0) {
                 System.out.println("Se ha retirado correctamente");
@@ -138,9 +138,8 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
     }
 
     @Override
-    public void transferir(CajaDeAhorro cuentaOrigen, CajaDeAhorro cuentaDestino, double monto) {
+    public void transferir(Integer cuentaOrigen, Integer cuentaDestino, double monto) {
         retirar(cuentaOrigen, monto);
         depositar(cuentaDestino, monto);
-
     }
 }

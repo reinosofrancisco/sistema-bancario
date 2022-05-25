@@ -23,23 +23,23 @@ public class CajaDeAhorroService implements ICuentaService<CajaDeAhorro>{
     }
 
     @Override
-    public void depositar(CajaDeAhorro cuenta, double monto) {
+    public void depositar(Integer cuenta, double monto) {
         this.cajaDeAhorroDAO.depositar(cuenta, monto);
     }
 
     @Override
-    public void retirar(CajaDeAhorro cuenta, double monto) {
+    public void retirar(Integer cuenta, double monto) {
         this.cajaDeAhorroDAO.retirar(cuenta, monto);
     }
 
     @Override
-    public void transferir(CajaDeAhorro cuentaOrigen, CajaDeAhorro cuentaDestino, double monto) {
+    public void transferir(Integer cuentaOrigen, Integer cuentaDestino, double monto) {
         this.cajaDeAhorroDAO.transferir(cuentaOrigen, cuentaDestino, monto);
     }
 
     @Override
-    public double getSaldo(CajaDeAhorro cuenta) {
-        return this.cajaDeAhorroDAO.getCuenta(cuenta.getNumCuenta()).getSaldo();
+    public double getSaldo(Integer cuenta) {
+        return this.cajaDeAhorroDAO.getCuenta(cuenta).getSaldo();
     }
 
 }
