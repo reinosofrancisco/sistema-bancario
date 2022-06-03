@@ -9,7 +9,7 @@ public class ClienteService implements IClienteService {
     private final IClienteDAO clienteDAO;
 
     public ClienteService() {
-        this.clienteDAO = new ClienteDAO();
+        this.clienteDAO = ClienteDAO.getInstance();
     }
 
     @Override

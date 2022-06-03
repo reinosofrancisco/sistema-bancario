@@ -11,6 +11,21 @@ import java.util.List;
 
 public class ClienteDAO implements IClienteDAO {
 
+    /* Unica instancia. */
+    private static ClienteDAO instance = null;
+
+    /* Constructor nulo privado. */
+    private ClienteDAO() {
+    }
+
+    /* Obtenemos la instancia. */
+    public static ClienteDAO getInstance() {
+        if (instance == null) {
+            instance = new ClienteDAO();
+        }
+        return instance;
+    }
+
     @Override
     public void addCliente(Cliente cliente) {
         /* ¡Me conecto a la Base de Datos y guardo el Cliente! */

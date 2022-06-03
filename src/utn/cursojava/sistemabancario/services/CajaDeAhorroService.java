@@ -9,7 +9,7 @@ public class CajaDeAhorroService implements ICuentaService<CajaDeAhorro>{
     private final ICuentaDAO<CajaDeAhorro> cajaDeAhorroDAO;
 
     public CajaDeAhorroService() {
-        this.cajaDeAhorroDAO = new CajaDeAhorroDAO();
+        this.cajaDeAhorroDAO = CajaDeAhorroDAO.getInstance();
     }
 
     @Override
@@ -39,7 +39,12 @@ public class CajaDeAhorroService implements ICuentaService<CajaDeAhorro>{
 
     @Override
     public double getSaldo(Integer cuenta) {
-        return this.cajaDeAhorroDAO.getCuenta(cuenta).getSaldo();
+        try {
+            return this.cajaDeAhorroDAO.getCuenta(cuenta).getSaldo();
+        } catch (NullPointerException e) {
+            System.out.println("No existe la cuenta");
+            return -1;
+        }
     }
 
 }

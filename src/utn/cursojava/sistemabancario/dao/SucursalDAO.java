@@ -119,7 +119,7 @@ public class SucursalDAO implements ISucursalDAO {
         /* Mientras la Sucursal no sea ID = 0 (Es decir, la Sucursal Virtual). */
         if (numeroSucursal != 0) {
             /* Primero actualizo los Clientes de la sucursal que voy a borrar a SucursalNumero -> 0 */
-            IClienteDAO clientedao = new ClienteDAO();
+            IClienteDAO clientedao = ClienteDAO.getInstance();
             clientedao.updateClientesSucursal(numeroSucursal);
 
             /* Luego elimino la Sucursal */

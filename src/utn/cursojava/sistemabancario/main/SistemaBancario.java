@@ -118,7 +118,11 @@ public class SistemaBancario {
                     System.out.println("Ingrese el numero de la caja de ahorro: ");
                     numeroCuenta = sc.nextInt();
                     /* CASO 6 - CONSULTAR SALDO EN UNA CUENTA */
-                    System.out.println("Saldo actual de la cuenta 1 = " + cajaDeAhorroService.getSaldo(numeroCuenta));
+                    double saldo;
+                    saldo = cajaDeAhorroService.getSaldo(numeroCuenta);
+                    if (saldo >= 0) {
+                        System.out.println("Saldo actual de la cuenta " + numeroCuenta + " = " + cajaDeAhorroService.getSaldo(numeroCuenta));
+                    }
                     break;
 
                 case 7:
@@ -152,8 +156,13 @@ public class SistemaBancario {
                     sucursalService.eliminarSucursal(sucursalNumero);
                     break;
 
+                case 0:
+                    System.out.println("Finalizando Ejecucion...");
+                    loop = false;
+                    break;
+
                 default:
-                    System.out.println("Opcion invalida");
+                    System.out.println("Opcion invalida. Finalizando Ejecucion...");
                     loop = false;
                     break;
 

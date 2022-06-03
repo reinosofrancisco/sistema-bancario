@@ -8,10 +8,17 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
 
     private final String UPDATE_SALDO_CAJA_DE_AHORRO = "UPDATE CUENTA_AHORRO SET saldo = ? WHERE numCuenta = ?";
 
+    //make CajaDeAhorroDAO a singleton
+    private static CajaDeAhorroDAO instance = null;
 
+    private CajaDeAhorroDAO() {
+    }
 
-    public CajaDeAhorroDAO() {
-
+    public static CajaDeAhorroDAO getInstance() {
+        if (instance == null) {
+            instance = new CajaDeAhorroDAO();
+        }
+        return instance;
     }
 
     @Override
@@ -54,10 +61,11 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
 
     @Override
     public void depositar(Integer cuenta, double monto) {
-        Double saldoActual = getCuenta(cuenta).getSaldo();
+
 
         JdbcConnection jdbcConnection = null;
         try {
+            Double saldoActual = getCuenta(cuenta).getSaldo();
             /* Me conecto a la base de datos */
             jdbcConnection = new JdbcConnection();
             PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareCall(UPDATE_SALDO_CAJA_DE_AHORRO);
@@ -72,7 +80,10 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
+        } catch (NullPointerException e) {
+            System.out.println("No existe una cuenta con ese numero de cuenta para depositar");
+        }
+        finally {
             if (jdbcConnection != null) {
                 jdbcConnection.closeConnection();
             }
@@ -98,23 +109,25 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
                         resultSet.getInt("dniCliente"),
                         resultSet.getString("tipoMoneda"));
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
+        }
+        finally {
             if (jdbcConnection != null) {
                 jdbcConnection.closeConnection();
             }
         }
+
         return cajaDeAhorro;
     }
 
     @Override
     public void retirar(Integer cuenta, double monto) {
-        Double saldoActual = getCuenta(cuenta).getSaldo();
+
 
         JdbcConnection jdbcConnection = null;
         try {
+            Double saldoActual = getCuenta(cuenta).getSaldo();
             /* Me conecto a la base de datos */
             jdbcConnection = new JdbcConnection();
             PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareCall(UPDATE_SALDO_CAJA_DE_AHORRO);
@@ -129,7 +142,10 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
+        } catch (NullPointerException e) {
+            System.out.println("No existe una cuenta con ese numero de cuenta para retirar");
+        }
+        finally {
             if (jdbcConnection != null) {
                 jdbcConnection.closeConnection();
             }
