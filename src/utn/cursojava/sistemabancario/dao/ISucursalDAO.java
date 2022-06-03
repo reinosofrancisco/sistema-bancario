@@ -15,4 +15,6 @@ public interface ISucursalDAO {
     List<Integer> getSucursales();
 
     void eliminarSucursal(Integer numeroSucursal);
+
+    Sucursal getSucursal(Integer numeroSucursal);
 }

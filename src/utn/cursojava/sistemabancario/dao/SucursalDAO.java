@@ -155,10 +155,40 @@ public class SucursalDAO implements ISucursalDAO {
                     jdbcConnection.closeConnection();
                 }
             }
+        } else {
+            System.out.println("No se puede eliminar la sucursal virtual (ID = 0)");
         }
     }
 
+    @Override
+    public Sucursal getSucursal(Integer numeroSucursal) {
+        Sucursal sucursal = null;
 
+        JdbcConnection jdbcConnection = null;
+        try {
+            jdbcConnection = new JdbcConnection();
+            String GET_SUCURSAL_BY_NUMERO_SUCURSAL = "SELECT * FROM SUCURSALES WHERE numeroSucursal=?";
+            PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareCall(GET_SUCURSAL_BY_NUMERO_SUCURSAL);
+            preparedStatement.setInt(1, numeroSucursal);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            /* Should only return one. */
+
+            if (resultSet.next()) {
+                sucursal = new Sucursal(resultSet.getInt("numeroSucursal"),
+                        resultSet.getString("nombreSucursal"));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (jdbcConnection != null) {
+                jdbcConnection.closeConnection();
+            }
+        }
+
+        return sucursal;
+    }
 
 
 }

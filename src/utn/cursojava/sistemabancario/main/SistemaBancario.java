@@ -38,26 +38,29 @@ public class SistemaBancario {
                 case 1:
                     System.out.println("Ingrese el numero de Sucursal: ");
                     sucursalNumero = sc.nextInt();
-                    System.out.println("Ingrese el DNI del Cliente: ");
-                    dni = sc.nextInt();
-                    /* Creo un cliente y lo agrego a la Sucursal Virtual. Por simplicidad,
-                    * solo se guarda en la BD el dni, nombreApellido, domicilio y numeroSucursal */
-                    Cliente cliente = new Cliente(String.valueOf(dni), "Reinoso Francisco", "2214555858",
-                            "Test@Test.com", "Calle 99 Numero 99",
-                            Date.from(LocalDate.now().minusYears(20).atStartOfDay().toInstant(ZoneOffset.UTC)),
-                            sucursalNumero
-                    );
-                    /* Agrego el cliente a la base de Datos */
-                    clienteService.addCliente(cliente);
 
-                    /* Creo una caja de ahorro para el nuevo cliente */
-                    System.out.println("Ingrese el numero de la cuenta: ");
-                    numeroCuenta = sc.nextInt();
-                    cajaDeAhorro = new CajaDeAhorro(numeroCuenta, 350.0,
-                            "2255-2255-2255-2255", Integer.valueOf(cliente.getDni()), "ARS");
+                    if (sucursalService.getSucursal(sucursalNumero) != null) {
+                        System.out.println("Ingrese el DNI del Cliente: ");
+                        dni = sc.nextInt();
+                        /* Creo un cliente y lo agrego a la Sucursal Virtual. Por simplicidad,
+                         * solo se guarda en la BD el dni, nombreApellido, domicilio y numeroSucursal */
+                        Cliente cliente = new Cliente(String.valueOf(dni), "Reinoso Francisco", "2214555858",
+                                "Test@Test.com", "Calle 99 Numero 99",
+                                Date.from(LocalDate.now().minusYears(20).atStartOfDay().toInstant(ZoneOffset.UTC)),
+                                sucursalNumero
+                        );
+                        /* Agrego el cliente a la base de Datos */
+                        clienteService.addCliente(cliente);
 
-                    /* Agrego la Caja de Ahorro a la Base de Datos */
-                    cajaDeAhorroService.addCuenta(cajaDeAhorro);
+                        /* Creo una caja de ahorro para el nuevo cliente */
+                        System.out.println("Ingrese el numero de la cuenta: ");
+                        numeroCuenta = sc.nextInt();
+                        cajaDeAhorro = new CajaDeAhorro(numeroCuenta, 350.0,
+                                "2255-2255-2255-2255", Integer.valueOf(cliente.getDni()), "ARS");
+
+                        /* Agrego la Caja de Ahorro a la Base de Datos */
+                        cajaDeAhorroService.addCuenta(cajaDeAhorro);
+                    } else { System.out.println("La Sucursal no existe"); }
                     break;
                 case 2:
                     System.out.println("Ingrese el DNI del Cliente: ");
@@ -152,6 +155,8 @@ public class SistemaBancario {
 
                 case 9:
                     /* Doy de Alta una Sucursal Testeo con ID = 1 para eliminar. Sino, solo existe Sucursal 0. */
+                    System.out.println("Se da de alta una sucursal ID = 1 para eliminar.\n" +
+                            "(Sino solo existe Sucursal 0 que no se puede borrar)");
                     sucursalService.addSucursal(1, "Sucursal Testeo");
                     //ingrese numero sucursal
                     System.out.println("Ingrese el numero de la sucursal: ");

@@ -31,4 +31,9 @@ public class SucursalService implements ISucursalService {
     public void eliminarSucursal(Integer numeroSucursal) {
         sucursalDAO.eliminarSucursal(numeroSucursal);
     }
+
+    @Override
+    public Sucursal getSucursal(Integer numeroSucursal) {
+        return sucursalDAO.getSucursal(numeroSucursal);
+    }
 }

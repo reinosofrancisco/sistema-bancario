@@ -1,5 +1,7 @@
 package utn.cursojava.sistemabancario.services;
 
+import utn.cursojava.sistemabancario.models.Sucursal;
+
 public interface ISucursalService {
 
     void addSucursal(Integer numeroSucursal, String nombreSucursal);
@@ -9,5 +11,7 @@ public interface ISucursalService {
     void printClientesAllSucursales();
 
     void eliminarSucursal(Integer numeroSucursal);
+
+    Sucursal getSucursal(Integer numeroSucursal);
 
 }
