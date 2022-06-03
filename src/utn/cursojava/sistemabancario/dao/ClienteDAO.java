@@ -90,6 +90,36 @@ public class ClienteDAO implements IClienteDAO {
 
     }
 
+    @Override
+    public Cliente getCliente(Integer dni) {
+        Cliente cliente = null;
+        JdbcConnection jdbcConnection = null;
+        try {
+            jdbcConnection = new JdbcConnection();
+            String GET_CLIENTE_BY_DNI = "SELECT * FROM CLIENTES WHERE dni=?";
+            PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareCall(GET_CLIENTE_BY_DNI);
+            preparedStatement.setInt(1, dni);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            /* Should only return one. */
+            if (resultSet.next()) {
+                cliente = new Cliente(resultSet.getString("dni"),
+                        resultSet.getString("nombreApellido"),
+                        null,
+                        null,
+                        resultSet.getString("domicilio"),
+                        null,
+                        resultSet.getInt("numeroSucursal"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (jdbcConnection != null) {
+                jdbcConnection.closeConnection();
+            }
+        }
+        return cliente;
+    }
 
 
     /** Devuelve la lista de DNIs de los clientes que corresponden a la sucursal

@@ -8,7 +8,6 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
 
     private final String UPDATE_SALDO_CAJA_DE_AHORRO = "UPDATE CUENTA_AHORRO SET saldo = ? WHERE numCuenta = ?";
 
-    //make CajaDeAhorroDAO a singleton
     private static CajaDeAhorroDAO instance = null;
 
     private CajaDeAhorroDAO() {

@@ -9,7 +9,7 @@ public class SucursalService implements ISucursalService {
     private final ISucursalDAO sucursalDAO;
 
     public SucursalService() {
-        this.sucursalDAO = new SucursalDAO();
+        this.sucursalDAO = SucursalDAO.getInstance();
     }
 
     @Override

@@ -11,6 +11,15 @@ import java.util.List;
 
 public class SucursalDAO implements ISucursalDAO {
 
+    private static SucursalDAO instance = null;
+    private SucursalDAO() {}
+    public static SucursalDAO getInstance() {
+        if (instance == null) {
+            instance = new SucursalDAO();
+        }
+        return instance;
+    }
+
     @Override
     public void addSucursal(Sucursal sucursal) {
         /* Logica para agregar la sucursal a la BD */

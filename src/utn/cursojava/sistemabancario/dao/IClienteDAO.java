@@ -8,5 +8,7 @@ public interface IClienteDAO {
 
     public void updateClientesSucursal(Integer idSucursal);
 
+    public Cliente getCliente(Integer dni);
+
 
 }

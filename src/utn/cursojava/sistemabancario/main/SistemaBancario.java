@@ -40,7 +40,8 @@ public class SistemaBancario {
                     sucursalNumero = sc.nextInt();
                     System.out.println("Ingrese el DNI del Cliente: ");
                     dni = sc.nextInt();
-                    /* Creo un cliente y lo agrego a la Sucursal Virtual */
+                    /* Creo un cliente y lo agrego a la Sucursal Virtual. Por simplicidad,
+                    * solo se guarda en la BD el dni, nombreApellido, domicilio y numeroSucursal */
                     Cliente cliente = new Cliente(String.valueOf(dni), "Reinoso Francisco", "2214555858",
                             "Test@Test.com", "Calle 99 Numero 99",
                             Date.from(LocalDate.now().minusYears(20).atStartOfDay().toInstant(ZoneOffset.UTC)),
@@ -62,33 +63,37 @@ public class SistemaBancario {
                     System.out.println("Ingrese el DNI del Cliente: ");
                     dni = sc.nextInt();
 
-                    ConsolePrinter.imprimirMenuCliente();
+                    if (clienteService.getCliente(dni) != null) {
 
-                    switch (sc.nextInt()) {
-                        case 1:
-                            /* Creo una caja de ahorro para el nuevo cliente */
-                            System.out.println("[ARS] Ingrese el numero de la cuenta: ");
-                            numeroCuenta = sc.nextInt();
-                            cajaDeAhorro = new CajaDeAhorro(numeroCuenta, 350.0,
-                                    "2255-2255-2255-2255", dni, "ARS");
+                        ConsolePrinter.imprimirMenuCliente();
+                        switch (sc.nextInt()) {
+                            case 1:
+                                /* Creo una caja de ahorro para el nuevo cliente */
+                                System.out.println("[ARS] Ingrese el numero de la cuenta: ");
+                                numeroCuenta = sc.nextInt();
+                                cajaDeAhorro = new CajaDeAhorro(numeroCuenta, 350.0,
+                                        "2255-2255-2255-2255", dni, "ARS");
 
-                            /* Agrego la Caja de Ahorro a la Base de Datos */
-                            cajaDeAhorroService.addCuenta(cajaDeAhorro);
-                            break;
-                        case 2:
-                            /* Creo una caja de ahorro para el nuevo cliente */
-                            System.out.println("[USD] Ingrese el numero de la cuenta: ");
-                            numeroCuenta = sc.nextInt();
-                            cajaDeAhorro = new CajaDeAhorro(numeroCuenta, 350.0,
-                                    "2255-2255-2255-2255", dni, "USD");
+                                /* Agrego la Caja de Ahorro a la Base de Datos */
+                                cajaDeAhorroService.addCuenta(cajaDeAhorro);
+                                break;
+                            case 2:
+                                /* Creo una caja de ahorro para el nuevo cliente */
+                                System.out.println("[USD] Ingrese el numero de la cuenta: ");
+                                numeroCuenta = sc.nextInt();
+                                cajaDeAhorro = new CajaDeAhorro(numeroCuenta, 350.0,
+                                        "2255-2255-2255-2255", dni, "USD");
 
-                            /* Agrego la Caja de Ahorro a la Base de Datos */
-                            cajaDeAhorroService.addCuenta(cajaDeAhorro);
-                            break;
-                        default:
-                            /* Cuenta corriente no esta implementado*/
-                            System.out.println("Opcion no valida - Cuenta Corriente no esta implementado.");
+                                /* Agrego la Caja de Ahorro a la Base de Datos */
+                                cajaDeAhorroService.addCuenta(cajaDeAhorro);
+                                break;
+                            default:
+                                /* Cuenta corriente no esta implementado*/
+                                System.out.println("Opcion no valida - Cuenta Corriente no esta implementado.");
+                        }
 
+                    } else {
+                        System.out.println("Cliente no encontrado.");
                     }
                     break;
 

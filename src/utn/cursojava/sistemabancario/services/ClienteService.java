@@ -16,4 +16,9 @@ public class ClienteService implements IClienteService {
     public void addCliente(Cliente cliente) {
         this.clienteDAO.addCliente(cliente);
     }
+
+    @Override
+    public Cliente getCliente(Integer dni) {
+        return this.clienteDAO.getCliente(dni);
+    }
 }

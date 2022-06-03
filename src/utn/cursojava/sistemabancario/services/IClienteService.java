@@ -5,6 +5,7 @@ import utn.cursojava.sistemabancario.models.Cliente;
 public interface IClienteService {
 
     void addCliente(Cliente cliente);
+    Cliente getCliente(Integer dni);
 
 
 }
