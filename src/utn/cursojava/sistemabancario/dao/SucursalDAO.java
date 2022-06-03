@@ -13,6 +13,9 @@ public class SucursalDAO implements ISucursalDAO {
 
     private static SucursalDAO instance = null;
     private SucursalDAO() {}
+
+    /** Retorna la instancia de la clase Singleton
+     * @return SucursalDAO Instancia de la clase */
     public static SucursalDAO getInstance() {
         if (instance == null) {
             instance = new SucursalDAO();

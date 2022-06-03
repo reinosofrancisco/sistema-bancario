@@ -18,7 +18,8 @@ public class ClienteDAO implements IClienteDAO {
     private ClienteDAO() {
     }
 
-    /* Obtenemos la instancia. */
+    /** Retorna la instancia de la clase Singleton
+     * @return ClienteDao Instancia de la clase */
     public static ClienteDAO getInstance() {
         if (instance == null) {
             instance = new ClienteDAO();
@@ -57,11 +58,7 @@ public class ClienteDAO implements IClienteDAO {
             }
         }
     }
-
-
-    /** Updates ALL clients of IdSucursal with idSucursal = 0
-     * @param idSucursal Sucursal de la cual queremos mudar los clientes
-     * */
+    @Override
     public void updateClientesSucursal(Integer idSucursal) {
         int idSucursalVirtual = 0;
 

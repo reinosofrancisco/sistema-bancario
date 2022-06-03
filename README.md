@@ -15,11 +15,3 @@ Se utilizará un modelo de capas con DAO, Service y Controller.
 5) Las transferencias pueden ser entre cuentas del mismo cliente o a cuentas de
    terceros.
 6) Las transacciones monetarias se realizan sobre las cuentas del cliente.
-
-### Restricciones del Modelado del Sistema de Gestión Bancaria:
-
-✓ Banco tiene una o más sucursales <br>
-✓ Cliente va a tener una o más cuentas, no necesariamente debe tener una CA <br>
-✓ Cliente depende de una Sucursal <br>
-✓ Las cuentas dependen del Cliente y pertenecen al Banco, no de la sucursal <br>
-✓ Las cuentas son parte del Banco <br>

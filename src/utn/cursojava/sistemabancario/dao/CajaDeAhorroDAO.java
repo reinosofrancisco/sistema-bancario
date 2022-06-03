@@ -13,6 +13,8 @@ public class CajaDeAhorroDAO implements ICuentaDAO<CajaDeAhorro> {
     private CajaDeAhorroDAO() {
     }
 
+    /** Retorna la instancia de la clase Singleton
+     * @return CajaDeAhorroDAO Instancia de la clase */
     public static CajaDeAhorroDAO getInstance() {
         if (instance == null) {
             instance = new CajaDeAhorroDAO();
