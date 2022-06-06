@@ -21,6 +21,9 @@ public class SistemaBancario {
         ISucursalService sucursalService = new SucursalService();
         sucursalService.addSucursal(0, "Sucursal Virtual");
 
+        /* Doy de alta una sucursal ID = 2 para testeos. */
+        sucursalService.addSucursal(2, "Sucursal Testeo");
+
         /* Instancio el Service de Cliente */
         IClienteService clienteService = new ClienteService();
 

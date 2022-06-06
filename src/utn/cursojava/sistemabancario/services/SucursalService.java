@@ -2,7 +2,10 @@ package utn.cursojava.sistemabancario.services;
 
 import utn.cursojava.sistemabancario.dao.ISucursalDAO;
 import utn.cursojava.sistemabancario.dao.SucursalDAO;
+import utn.cursojava.sistemabancario.models.Cliente;
 import utn.cursojava.sistemabancario.models.Sucursal;
+
+import java.util.List;
 
 public class SucursalService implements ISucursalService {
 
@@ -19,12 +22,18 @@ public class SucursalService implements ISucursalService {
 
     @Override
     public void printClientes(Integer numeroSucursal) {
-        sucursalDAO.printClientes(numeroSucursal);
+        List<Cliente> listaClientes = sucursalDAO.getClientesBySucursal(numeroSucursal);
+        System.out.println("Clientes Sucursal: " + numeroSucursal);
+        listaClientes.forEach((Cliente cliente) -> {
+            System.out.println("DNI: " + cliente.getDni());
+        });
     }
 
     @Override
     public void printClientesAllSucursales() {
-        sucursalDAO.printClientesAllSucursales();
+        sucursalDAO.getSucursales().forEach((Integer idSucursal) -> {
+            printClientes(idSucursal);
+        });
     }
 
     @Override

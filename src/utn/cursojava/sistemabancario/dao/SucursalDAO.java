@@ -1,5 +1,6 @@
 package utn.cursojava.sistemabancario.dao;
 
+import utn.cursojava.sistemabancario.models.Cliente;
 import utn.cursojava.sistemabancario.models.Sucursal;
 
 import java.sql.PreparedStatement;
@@ -53,16 +54,18 @@ public class SucursalDAO implements ISucursalDAO {
         }
     }
 
-    /** Prints all clients of Sucursal
-     * @param numeroSucursal numeroSucursal of the sucursal to print
+
+    /** Returns all clients of Sucursal
+     * @param numeroSucursal numeroSucursal de la sucursal a obtener los clientes.
+     * @return Lista de clientes de la sucursal
      */
-    @Override
-    public void printClientes(Integer numeroSucursal) {
+    public List<Cliente> getClientesBySucursal(Integer numeroSucursal){
         /* Logica para obtener los clientes de la sucursal */
         /* Me conecto a la Base de Datos y obtengo los clientes! */
 
         /* Logica para agregar la sucursal a la BD */
         /* Me conecto a la Base de Datos y guardo la Sucursal! */
+        List<Cliente> clientesSucursal = new ArrayList<>();
         ResultSet resultSet;
         JdbcConnection jdbcConnection = null;
         try {
@@ -74,9 +77,12 @@ public class SucursalDAO implements ISucursalDAO {
 
             resultSet = preparedStatement.executeQuery();
 
-            System.out.println("Clientes Sucursal " + numeroSucursal);
             while (resultSet.next()) {
-                System.out.println("DNI = " + resultSet.getString("dni"));
+                Cliente clienteTemporal = new Cliente(resultSet.getString("dni"),
+                        resultSet.getString("NOMBRE_APELLIDO"),
+                        null,null, resultSet.getString("domicilio"),
+                        null, Integer.valueOf(resultSet.getString("numeroSucursal")));
+                clientesSucursal.add(clienteTemporal);
             }
 
         } catch (SQLException e) {
@@ -86,16 +92,7 @@ public class SucursalDAO implements ISucursalDAO {
                 jdbcConnection.closeConnection();
             }
         }
-
-    }
-
-    @Override
-    public void printClientesAllSucursales() {
-        List<Integer> list = getSucursales();
-        for (Integer numeroSucursal : list) {
-            printClientes(numeroSucursal);
-        }
-
+        return clientesSucursal;
     }
 
     @Override

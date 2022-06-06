@@ -1,5 +1,6 @@
 package utn.cursojava.sistemabancario.dao;
 
+import utn.cursojava.sistemabancario.models.Cliente;
 import utn.cursojava.sistemabancario.models.Sucursal;
 
 import java.util.List;
@@ -10,11 +11,6 @@ public interface ISucursalDAO {
      * @param sucursal sucursal a agregar. */
     void addSucursal(Sucursal sucursal);
 
-    /** Metodo para imprimir los clientes de la sucursal enviada */
-    void printClientes(Integer numeroSucursal);
-
-    /** Metodo para imprimir los clientes de todas las sucursales */
-    void printClientesAllSucursales();
 
     /** Metodo que retorna una lista con el numero de todas las Sucursal.
      * @return Lista con los numeros de las Sucursales */
@@ -28,4 +24,10 @@ public interface ISucursalDAO {
      * @param numeroSucursal identificador de la sucursal a obtener
      * @return Sucursal */
     Sucursal getSucursal(Integer numeroSucursal);
+
+
+    /** Metodo que devuelve todos los clientes del la sucursal
+     * @param numeroSucursal numero de sucursal a devolver clientes
+     * @return Lista de clientes*/
+    public List<Cliente> getClientesBySucursal(Integer numeroSucursal);
 }
