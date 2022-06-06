@@ -101,7 +101,7 @@ public class ClienteDAO implements IClienteDAO {
             /* Should only return one. */
             if (resultSet.next()) {
                 cliente = new Cliente(resultSet.getString("dni"),
-                        resultSet.getString("nombreApellido"),
+                        resultSet.getString("NOMBRE_APELLIDO"),
                         null,
                         null,
                         resultSet.getString("domicilio"),

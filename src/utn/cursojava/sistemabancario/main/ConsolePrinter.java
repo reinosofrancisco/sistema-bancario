@@ -20,8 +20,7 @@ public class ConsolePrinter {
         System.out.println("\n**********MENU CLIENTE-CUENTA**********\n" +
                 "1) Alta de Caja de Ahorro en Pesos\n" +
                 "2) Alta de Caja de Ahorro en dólares\n" +
-                "3) Alta de Cuenta Corriente en Pesos\n" +
-                "4) Alta de Cuenta Corriente en dólares\n");
+                "3) Alta de Cuenta Corriente en Pesos\n" );
     }
 
 }

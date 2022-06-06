@@ -2,6 +2,7 @@ package utn.cursojava.sistemabancario.main;
 
 import utn.cursojava.sistemabancario.models.CajaDeAhorro;
 import utn.cursojava.sistemabancario.models.Cliente;
+import utn.cursojava.sistemabancario.models.CuentaCorriente;
 import utn.cursojava.sistemabancario.services.*;
 
 import java.time.LocalDate;
@@ -27,14 +28,16 @@ public class SistemaBancario {
         /* Instancio el Service de Cliente */
         IClienteService clienteService = new ClienteService();
 
-        /* Instancio el Service de Caja de Ahorro */
+        /* Instancio el Service de Caja de Ahorro y de Cuenta Corriente */
         ICuentaService<CajaDeAhorro> cajaDeAhorroService = new CajaDeAhorroService();
+        ICuentaService<CuentaCorriente> cuentaCorrienteService = new CuentaCorrienteService();
 
         Scanner sc = new Scanner(System.in);
         boolean loop = true;
         int sucursalNumero, dni, numeroCuenta, numeroCuenta2;
         double monto;
         CajaDeAhorro cajaDeAhorro;
+        CuentaCorriente cuentaCorriente;
         while (loop) {
             ConsolePrinter.imprimirMenuPrincipal();
             switch (sc.nextInt()) {
@@ -93,9 +96,18 @@ public class SistemaBancario {
                                 /* Agrego la Caja de Ahorro a la Base de Datos */
                                 cajaDeAhorroService.addCuenta(cajaDeAhorro);
                                 break;
+                            case 3:
+                                /* Creo una cuenta corriente para el nuevo cliente.*/
+                                System.out.println("[ARS] Ingrese el numero de la cuenta: ");
+                                numeroCuenta = sc.nextInt();
+                                cuentaCorriente = new CuentaCorriente(numeroCuenta,350.0,
+                                        "999-999-999-999",dni);
+                                /* agrego la cuenta corriente en la Base de Datos*/
+                                cuentaCorrienteService.addCuenta(cuentaCorriente);
+                                break;
                             default:
                                 /* Cuenta corriente no esta implementado*/
-                                System.out.println("Opcion no valida - Cuenta Corriente no esta implementado.");
+                                System.out.println("Opcion no valida.");
                         }
 
                     } else {

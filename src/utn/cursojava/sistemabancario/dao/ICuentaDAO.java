@@ -1,6 +1,7 @@
 package utn.cursojava.sistemabancario.dao;
 
 import utn.cursojava.sistemabancario.models.CajaDeAhorro;
+import utn.cursojava.sistemabancario.models.Cuenta;
 
 public interface ICuentaDAO<T> {
     /** Metodo para agregar una cuenta a la Base de Datos.
@@ -24,14 +25,19 @@ public interface ICuentaDAO<T> {
      */
     void retirar(Integer cuenta, double monto);
 
-    /** Metodo para trasnferir dinero de una cuenta a otra
+    /** Metodo para trasnferir dinero de una cuenta a otra.
+     * Solo se puede transferir dinero entre cuentas del mismo tipo.
      * @param cuentaOrigen Cuenta de la cual transfiero
      * @param cuentaDestino Cuenta que recibe el dinero
-     * @param monto Monto que sera transferido*/
+     * @param monto Monto que sera transferido.
+     * */
     void transferir(Integer cuentaOrigen, Integer cuentaDestino, double monto);
 
-    /** Metodo para obtener una cuenta
-     * @param numCuenta identificador de la cuenta que quiero obtener*/
-    CajaDeAhorro getCuenta(int numCuenta);
+    /**
+     * Metodo para obtener una cuenta
+     * @param numCuenta identificador de la cuenta que quiero obtener
+     * @return Cuenta con ese numero
+     */
+    Cuenta getCuenta(int numCuenta);
 
 }
